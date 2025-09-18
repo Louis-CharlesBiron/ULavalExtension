@@ -1,0 +1,38 @@
+{
+  "name": "ULaval Extension",
+  "description": "ULaval monPortail but goot todo",
+  "version": "1",
+  "version_name": "1 SomeText",
+  "manifest_version": 3,
+  "icons": {
+      "128": "./img/popup.png"
+  },
+  "commands": {
+    "_execute_action": { 
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "linux": "Ctrl+Shift+E",
+        "windows": "Ctrl+Shift+E",
+        "mac": "Alt+Shift+E"
+      }
+    }
+  },
+  "background": {
+      "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://monportail.ulaval.ca/*", "https://sitescours.monportail.ulaval.ca/*", "https://login.microsoftonline.com/*"],
+      "js":  ["storageMapping.js", "./content/content.js"],
+      "css": ["./content/injected.css"]
+    }
+  ],
+  "action": {
+    "default_title": "Browser_Action titlee TODO",
+      "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ]
+}
