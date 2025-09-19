@@ -1,4 +1,4 @@
-const m = {
+export const m = {
     darkMode:"a",
     antiBloat:"b"
 }

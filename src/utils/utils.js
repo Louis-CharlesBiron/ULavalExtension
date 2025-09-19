@@ -1,4 +1,4 @@
-const STORAGE_TYPES = {SYNC:"sync", LOCAL:"local", SESSION:"session"}
+export const STORAGE_TYPES = {SYNC:"sync", LOCAL:"local", SESSION:"session"}
 
 /**
  * Stores the state of a checkbox. (Browser Extension)
@@ -10,8 +10,8 @@ const STORAGE_TYPES = {SYNC:"sync", LOCAL:"local", SESSION:"session"}
  * @param {Boolean?} initChecked Whether the checkbox is initially checked
  * @returns The html checkbox element
  */
-function keepCheckbox(element, storageType, storageName, onClickCB, onloadCB, initChecked=false) {
-    storageType??="sync"
+export function keepCheckbox(element, storageType, storageName, onClickCB, onloadCB, initChecked=false) {
+    storageType??=STORAGE_TYPES.SYNC
     chrome.storage[storageType].get(r=>{
         const checked = element.checked=r[storageName]??initChecked
         if (typeof onloadCB=="function") onloadCB(checked, element)
@@ -30,7 +30,15 @@ function keepCheckbox(element, storageType, storageName, onClickCB, onloadCB, in
  * @param {Boolean?} sendToContent If true, sends the message to the content instead of the background
  * @param {Function?} onErrorCB Function called upon error. (err)=>{...}
  */
-function sendMessage(obj={}, sendToContent, onErrorCB=(err)=>{console.log(err)}) {
+export function sendMessage(obj={}, sendToContent, onErrorCB=(err)=>{console.log(err)}) {
     if (sendToContent) chrome.tabs.query({currentWindow:true, active:true}, tabs=>chrome.tabs.sendMessage(tabs[0].id, obj).catch(onErrorCB))
     else chrome.runtime.sendMessage(obj).catch(onErrorCB)
+}
+
+/**
+ * Returns the time in the following format 00:00:00
+ */
+export function getTime() {
+    const d = new Date()
+    return ["getHours","getMinutes","getSeconds"].reduce((a, b)=>a+":"+(d[b]()>9?d[b]():"0"+d[b]()),"").slice(1)
 }
