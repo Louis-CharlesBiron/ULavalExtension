@@ -5,7 +5,7 @@
   "version_name": "1 SomeText",
   "manifest_version": 3,
   "icons": {
-      "128": ".src/assets/img/popup.png"
+      "128": "./assets/img/popup.png"
   },
   "commands": {
     "_execute_action": { 
@@ -18,23 +18,23 @@
     }
   },
   "background": {
-      "service_worker": "./src/background.js"
+      "service_worker": "./background.js"
   },
   "content_scripts": [
     {
       "matches": ["https://monportail.ulaval.ca/*", "https://sitescours.monportail.ulaval.ca/*", "https://login.microsoftonline.com/*"],
       "js":  [
-        ".src/content/storageMapping.js",
-        ".src/content/content.js"
+        "./content/contentStorageMapping.js",
+        "./content/content.js"
       ],
       "css": [
-        ".src/content/injected.css"
+        "./content/injected.css"
       ]
     }
   ],
   "action": {
     "default_title": "Open ULaval menu...",
-      "default_popup": "popup.html"
+      "default_popup": "index.html"
   },
   "permissions": [
     "storage",

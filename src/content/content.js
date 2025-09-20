@@ -3,17 +3,15 @@
 // Please don't use nor credit this code as your own.
 //
 
-chrome.storage.sync.get(r=>{
-console.log(r)
-    antiBloat(r.b)
-})
+chrome.storage.sync.get(r=>{console.log(r)})
+
+console.log("%cCONTENT SCRIPT", "color:lime;font-size:50px")
+
 
 chrome.runtime.onMessage.addListener(m=>{
-    //console.log(m)
     if (m.type=="antiBloat") antiBloat(m.value)
 })
 
-console.log("YOOOO", m.darkMode)
 
 function antiBloat(enabled) {
     const bloatElements = document.querySelectorAll("section:not(.mpo--liste-cours), div.mpo--site-hors-session, footer"), b_ll = bloatElements.length,
