@@ -3,7 +3,7 @@
 }
 html, body, #root {
     width: 586px;
-    height: 446px;
+    height: 526px;
     background-color: aliceblue;
     margin: 0px;
     user-select: none;
@@ -12,55 +12,14 @@ html, body, #root {
     font-size: 14px;
     letter-spacing: 1.45px;
     outline: 5px solid red;
+    position: relative;
 }
 ::selection {background-color: rgba(0, 26, 26, 0.45);}
-*::-webkit-scrollbar {width: 8px;height: 5px;}*::-webkit-scrollbar-track {background: transparent;}*::-webkit-scrollbar-thumb {background: rgb(60 110 104 / 30%);border-radius: 10px;}*::-webkit-scrollbar-thumb:hover {background: rgb(60 110 104 / 40%);}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Fancy Checkbox */
-.checkboxParent {
-    width: 64px;
-    height: 34px;
-    position: relative;
-    display: inline-block;
-    box-shadow: 3px 6px 6px 0 rgb(0 0 0 / 5%);
+*::-webkit-scrollbar {width: 8px;height: 5px;}
+*::-webkit-scrollbar-track {background: transparent;}
+*::-webkit-scrollbar-thumb {
+    background: rgba(88, 88, 88, 0.3);
+    border-radius: 10px;
+    cursor: default;
 }
-.checkCore {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #afb7cd;
-    transition: 0.4s;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    border-radius: 4px;
-}
-.checkCore:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 2px;
-}
-.checkboxParent > input {display: none;}
-.checkboxParent > input:checked + .checkCore:before {transform: translateX(28px);}
-.checkboxParent > input:checked + .checkCore {background-color: #5fadeb;}
-
+*::-webkit-scrollbar-thumb:hover {background: rgba(99, 99, 99, 0.4);}

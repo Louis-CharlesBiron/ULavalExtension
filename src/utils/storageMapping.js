@@ -1,4 +1,5 @@
-export const m = {
+export default {
     darkMode:"a",
-    antiBloat:"b"
+    antiBloat:"b",
+    useGravity:"c",
 }

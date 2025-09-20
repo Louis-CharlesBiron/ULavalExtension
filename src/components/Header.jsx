@@ -2,11 +2,12 @@ import { useEffect, useState } from "react"
 import styles from "./CSS/Header.module.css"
 import Button from "./Button"
 import { getTime } from "../utils/utils"
+import { PAGES } from "../App"
 
 /**
  * Displays the main Header
  */
-function Header({canGoBack=9}) {
+function Header({activePageState}) {
     const [time, setTime] = useState(getTime())
 
 
@@ -16,7 +17,7 @@ function Header({canGoBack=9}) {
 
     return <div className={styles.header}>
         <div className={styles.content}>
-            {canGoBack&&<Button className={styles.back}>$back</Button>}
+            {activePageState[0]==PAGES.OPTIONS&&<Button className={styles.back} onClick={()=>activePageState[1](PAGES.ACCUEIL)}>$back</Button>}
             <h1 className={styles.title}>ULaval Extension</h1>
             <div className={styles.time}>{time}</div>
         </div>

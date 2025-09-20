@@ -42,3 +42,13 @@ export function getTime() {
     const d = new Date()
     return ["getHours","getMinutes","getSeconds"].reduce((a, b)=>a+":"+(d[b]()>9?d[b]():"0"+d[b]()),"").slice(1)
 }
+
+const monthBank = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+      weekdayBank = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
+/**
+ * Returns the date in the following format [weekday] [date] [month] [year]
+ */
+export function getDate() {
+    const d = new Date()
+    return `${weekdayBank[d.getDay()]} ${d.getDate()} ${monthBank[d.getMonth()]} ${d.getFullYear()}`
+}

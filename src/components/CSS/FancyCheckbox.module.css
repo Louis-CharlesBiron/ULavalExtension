@@ -1,0 +1,57 @@
+.checkboxParent {
+    width: 64px;
+    height: 34px;
+    position: relative;
+    display: inline-block;
+    box-shadow: 3px 6px 6px 0 rgb(0 0 0 / 5%);
+}
+
+.checkCore {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #afb7cd;
+    transition: 0.4s;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 4px;
+}
+
+.checkCore:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 2px;
+}
+
+.day {
+    background-image: url(../../assets/img/day.png);
+    border-radius: 10px;
+}
+
+.day:before {
+    background-color: transparent;
+    background-image: url(../../assets/img/sun.png);
+}
+
+.night {
+    background-image: url(../../assets/img/night.png);
+    border-radius: 10px;
+}
+
+.night:before  {
+    background-color: transparent;
+    background-image: url(../../assets/img/moon.png);
+}
+
+.checkboxParent > input {display: none;}
+.checkboxParent > input:checked + .checkCore:before {transform: translateX(28px);}
+.checkboxParent > input:checked + .checkCore {background-color: #5fadeb;}
