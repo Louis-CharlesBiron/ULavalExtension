@@ -1,8 +1,8 @@
 {
   "name": "ULaval Extension",
-  "description": "ULaval monPortail but goot todo",
+  "description": "ULaval monPortail but good todo",
   "version": "1",
-  "version_name": "1 SomeText",
+  "version_name": "1 todo",
   "manifest_version": 3,
   "icons": {
       "128": "./assets/img/popup.png"
@@ -18,17 +18,15 @@
     }
   },
   "background": {
-      "service_worker": "./background.js"
+      "service_worker": "background.js"
   },
+  "host_permissions": ["https://monportail.ulaval.ca/*", "https://sitescours.monportail.ulaval.ca/*"],
   "content_scripts": [
     {
       "matches": ["https://monportail.ulaval.ca/*", "https://sitescours.monportail.ulaval.ca/*", "https://login.microsoftonline.com/*"],
       "js":  [
-        "./content/contentStorageMapping.js",
+        "./content/contentUtils.js",
         "./content/content.js"
-      ],
-      "css": [
-        "./content/injected.css"
       ]
     }
   ],
@@ -38,6 +36,7 @@
   },
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "scripting"
   ]
 }

@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import styles from "./CSS/FancyCheckbox.module.css"
-import { chrome } from "../App"
 import { STORAGE_TYPES } from "../utils/utils"
+import { chrome } from "../scripts/DEV_fakeChrome"
 
 /**
  * Displays a fancy checkbox

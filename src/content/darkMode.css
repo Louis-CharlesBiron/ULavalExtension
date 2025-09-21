@@ -1,0 +1,26 @@
+/* 
+    CSS
+    ULaval Extension by Louis-Charles Biron
+    Please don't use nor credit this code as your own.
+*/
+
+html {
+    filter: invert(1) hue-rotate(180deg) saturate(1.5) !important;
+}
+
+.mpo-menu-desktop-cadre__conteneur {
+    background-color: white !important;
+    color: black !important;
+}
+
+span.mpo-menu-desktop-cadre__titre {
+    color: black !important;
+}
+
+i.m-icon-svg.mpo-menu-desktop-cadre__icone-entete g {
+    fill: black !important;
+}
+
+a.mpo-menu-desktop-cadre__lien:hover {
+    color: black !important;
+}

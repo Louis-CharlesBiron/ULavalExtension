@@ -1,5 +1,4 @@
 export const STORAGE_TYPES = {SYNC:"sync", LOCAL:"local", SESSION:"session"}
-
 /**
  * Stores the state of a checkbox. (Browser Extension)
  * @param {HTMLInputElement} element The html checkbox element
@@ -24,15 +23,19 @@ export function keepCheckbox(element, storageType, storageName, onClickCB, onloa
     return element
 }
 
+export const MESSAGE_DESTINATIONS = {CONTENT:0, BACKGROUND:1, ALL:2}
 /**
  * Sends a message to the background or the content
- * @param {Object} obj The object to send 
- * @param {Boolean?} sendToContent If true, sends the message to the content instead of the background
+ * @param {Object} obj The object to send
+ * @param {Boolean?} destination If true, sends the message to the content instead of the background
  * @param {Function?} onErrorCB Function called upon error. (err)=>{...}
  */
-export function sendMessage(obj={}, sendToContent=true, onErrorCB=(err)=>{console.log(err)}) {
-    if (sendToContent) chrome.tabs.query({currentWindow:true, active:true}, tabs=>chrome.tabs.sendMessage(tabs[0].id, obj).catch(onErrorCB))
-    else chrome.runtime.sendMessage(obj).catch(onErrorCB)
+export function sendMessage(obj={}, destination=MESSAGE_DESTINATIONS.CONTENT, onErrorCB=(err)=>{console.log(err)}) {
+    if (destination==MESSAGE_DESTINATIONS.BACKGROUND) chrome.runtime.sendMessage(obj).catch(onErrorCB)
+    else if (destination==MESSAGE_DESTINATIONS.CONTENT || destination==MESSAGE_DESTINATIONS.ALL) {
+        chrome.tabs.query({currentWindow:true, active:true}, tabs=>chrome.tabs.sendMessage(tabs[0].id, obj).catch(onErrorCB))
+        if (destination==MESSAGE_DESTINATIONS.ALL) chrome.runtime.sendMessage(obj).catch(onErrorCB)
+    }
 }
 
 /**
