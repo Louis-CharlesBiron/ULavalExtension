@@ -11,10 +11,6 @@ console.log(`%c${logoVariations[random(0, logoVariations.length-1)]}`, "font-siz
 const preloadBacklog = []
 let loadingFinished = false
 
-// si pas laod et besoin load -> backlog.push
-// quand load -> run()
-// si load -> run()
-
 // MESSAGE LISTENER
 chrome.runtime.onMessage.addListener(execMapper)
 
@@ -30,7 +26,6 @@ function execMapper(msg) {
 // AUTO APPLY FROM STORAGE
 chrome.storage.sync.get(r=>{
     if (r[SM.antiBloat]) execMapper({type:"antiBloat", value:r[SM.antiBloat], postLoad:true})
-    ////if (r[SM.darkMode]) execMapper({type:"darkMode", value:r[SM.darkMode]})
 })
 
 // LOADING OBSERVER
@@ -67,23 +62,3 @@ function darkMode(enabled) {
     styleElement.appendChild(document.createTextNode(enabled ? manualDarkModeCSS: manualLightModeCSS))
     head.appendChild(styleElement)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
