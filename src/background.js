@@ -20,7 +20,7 @@ function darkModeInjecter(enabled) {
         css: ["./content/darkMode.css"],
         persistAcrossSessions: true,
         matches: ["https://monportail.ulaval.ca/*", "https://sitescours.monportail.ulaval.ca/*"],
-        //excludeMatches: []
+        excludeMatches: ["*://*/*.pdf*"]
     }]).catch(()=>{})
     else chrome.scripting.unregisterContentScripts({ids:["darkMode"]}).catch(()=>{})
 }

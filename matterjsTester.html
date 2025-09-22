@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Matter.js Two Boxes</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <style>
+    canvas { border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <script>
+    const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint } = Matter;
+    // TO DELETE
+
+    // Create engine and reduce gravity
+    const engine = Engine.create();
+    engine.gravity.y = 0.15;
+
+    const { world } = engine;
+
+    // Create renderer
+    const render = Render.create({
+      element: document.body,
+      engine: engine,
+      options: {
+        width: 800,
+        height: 600,
+        wireframes: false,
+        background: '#f0f0f0'
+      }
+    });
+    Render.run(render);
+
+    // Create runner
+    const runner = Runner.create();
+    Runner.run(runner, engine);
+
+    // Add boundary walls
+    const walls = [
+      Bodies.rectangle(400, 0, 800, 20, { isStatic: true }),     // top
+      Bodies.rectangle(400, 600, 800, 20, { isStatic: true }),   // bottom
+      Bodies.rectangle(0, 300, 20, 600, { isStatic: true }),     // left
+      Bodies.rectangle(800, 300, 20, 600, { isStatic: true })    // right
+    ];
+    Composite.add(world, walls);
+
+    // Add two boxes
+    const boxA = Bodies.rectangle(300, 200, 80, 80, { restitution: 0.5 });
+    const boxB = Bodies.rectangle(500, 200, 80, 80, { restitution: 0.5 });
+    Composite.add(world, [boxA, boxB]);
+
+    // Add mouse control
+    const mouse = Mouse.create(render.canvas);
+    const mouseConstraint = MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: { visible: false }
+      }
+    });
+    Composite.add(world, mouseConstraint);
+    render.mouse = mouse;
+
+    Matter.Events.on(engine, 'afterUpdate', () => {
+        console.log(`BoxA → x: ${boxA.position.x.toFixed(2)}, y: ${boxA.position.y.toFixed(2)}, angle: ${boxA.angle.toFixed(2)}`);
+        console.log(`BoxB → x: ${boxB.position.x.toFixed(2)}, y: ${boxB.position.y.toFixed(2)}, angle: ${boxB.angle.toFixed(2)}`);
+    });
+  </script>
+</body>
+</html>

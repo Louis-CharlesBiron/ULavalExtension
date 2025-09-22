@@ -5,22 +5,34 @@
 */
 
 html {
-    filter: invert(1) hue-rotate(180deg) saturate(1.5) !important;
+    filter: invert(1) hue-rotate(180deg) saturate(1.1) !important;
 }
 
-.mpo-menu-desktop-cadre__conteneur {
-    background-color: white !important;
+span.mpo-menu-desktop-cadre__titre, .mpo-menu-desktop-cadre__lien, .mpo-menu-desktop-cadre__lien:hover, .mpo-menu-desktop-cadre__conteneur, .mpo-menu-elem, .MenuSiteCours_EnteteBloc * {
     color: black !important;
 }
 
-span.mpo-menu-desktop-cadre__titre {
-    color: black !important;
-}
-
-i.m-icon-svg.mpo-menu-desktop-cadre__icone-entete g {
+.m-icon-svg.mpo-menu-desktop-cadre__icone-entete g {
     fill: black !important;
 }
 
-a.mpo-menu-desktop-cadre__lien:hover {
-    color: black !important;
+.mpo-gabarit-page.mpo-smart-page-mon-compte.mpo-portail-web.mu-app-root, #conteneur-shell, #mpo-menu, .mpo-menu-desktop-cadre__conteneur, .mpo-smart-calendrier__colonne-contenu, .mpo-menu-desktop-cadre__sous-section {
+    background-color: white !important;
+}
+
+img, image, iframe, video {
+    filter: invert(1) hue-rotate(180deg) !important;
+}
+
+.m-modal__wrap.m--is-close-on-backdrop {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.MenuSiteCours_EnteteBloc {
+    background-color: #bababa;
+}
+
+.mpo-menu-cadre__button {
+    background-color: white !important;
+    color: #3c3c3c !important;
 }

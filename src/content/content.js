@@ -4,8 +4,9 @@
 //
 
 // HELLO MESSAGE
-console.log("%cThank you for using ULaval extension :)", "color:lime;font-size:16px")
-console.log(`%c${logoVariations[random(0, logoVariations.length-1)]}`, "font-size:11.5px;font-family:monospace;white-space:pre;color:aliceblue", "\n\nBy Louis-Charles Biron")
+console.log("%cThank you for using ULaval Extension :)", "color:lime;font-size:16px")
+console.log(`%c${logoVariations[random(0, logoVariations.length-1)]}`, "font-size:11.5px;font-family:monospace;white-space:pre;color:aliceblue")
+console.log("\n\nBy Louis-Charles Biron\n\n\n")
 
 // GLOBALS
 const preloadBacklog = []
@@ -32,23 +33,31 @@ chrome.storage.sync.get(r=>{
 const loadingClass = "mpo-squelette-cadre", targetElement = document.querySelector("."+loadingClass)
 if (targetElement) {
 const loadingObserver = new MutationObserver(list=>{
-        list.forEach(mut=>mut.removedNodes.forEach(el=>{
-            if (el.className.includes(loadingClass)) {
-                // ON LOAD
-                console.log("LOADING FINISHED")
-                loadingObserver.disconnect()
-                loadingFinished = true
-                preloadBacklog.forEach(msg=>execMapper(msg))
-            }
-        }))
-    })
-    loadingObserver.observe(document.querySelector(targetElement.parentElement, {childList:true}))
+    list.forEach(mut=>mut.removedNodes.forEach(el=>{
+        if (el.className.includes(loadingClass)) {
+            // ON LOAD
+            console.log("LOADING FINISHED")
+            loadingFinished = true
+            preloadBacklog.forEach(msg=>execMapper(msg))
+            loadingObserver.disconnect()
+        }
+    }))
+})
+    loadingObserver.observe(targetElement.parentElement, {childList:true})
 }
 
 // FUNCTIONS DEFINITIONS
 function antiBloat(enabled) {
-    const bloatElements = document.querySelectorAll("section:not(.mpo--liste-cours), div.mpo--site-hors-session, footer"), b_ll = bloatElements.length, visibility = enabled?"none":""
+    const bloatElements = document.querySelectorAll("section:not(.mpo--liste-cours), div.mpo--site-hors-session, footer, .mpo-gabarit-accordeon-liste-cours__nombre-nouvautes"), b_ll = bloatElements.length, visibility = enabled?"none":""
     for (let i=0;i<b_ll;i++) bloatElements[i].style.display = visibility
+
+    // CENTER THE DIV
+    const parent = document.querySelector(".mpo-smart-page-tableau-bord__zone-cours-et-messages-importants")
+    parent.style.display = "flex"
+    parent.style.justifyContent = "center"
+
+    // CLEAN EDITION TEXT
+    document.querySelector(".mpo-smart-entete-cadre__logo-mpo").innerHTML = "mon<b>Portail</b><i style='font-size:0.85em'>&nbsp;Clean edition</i>"
 }
 
 function darkMode(enabled) {

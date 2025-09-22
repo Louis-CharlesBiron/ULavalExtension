@@ -13,6 +13,20 @@ function random(min, max, decimals=0) {
     } else return (Math.random()*(max-min)+min)>>0
 }
 
+function absolutize(el, appendToEl=document.querySelector(".mu-app-root")) {
+    const {x, y, width, height} = el.getBoundingClientRect(), copyEl = el.cloneNode(999)
+    
+    el.style.opacity = 0
+    el.style.pointerEvents = "none"
+    
+    copyEl.style.position = "absolute"
+    copyEl.style.left = x+"px"
+    copyEl.style.top = y+"px"
+    copyEl.style.width = width+"px"
+    copyEl.style.height = height+"px"
+    appendToEl.appendChild(copyEl)
+}
+
 // STORAGE MAPPING
 const SM = {
     darkMode:"a",
@@ -22,37 +36,65 @@ const SM = {
 
 // DARK MODE CSS
 const manualDarkModeCSS = `
-.mpo-menu-desktop-cadre__conteneur {
-    background-color: white !important;
+html {
+    filter: invert(1) hue-rotate(180deg) saturate(1.1) !important;
+}
+
+span.mpo-menu-desktop-cadre__titre, .mpo-menu-desktop-cadre__lien, .mpo-menu-desktop-cadre__lien:hover, .mpo-menu-desktop-cadre__conteneur, .mpo-menu-elem, .MenuSiteCours_EnteteBloc * {
     color: black !important;
 }
 
-span.mpo-menu-desktop-cadre__titre {
-    color: black !important;
-}
-
-i.m-icon-svg.mpo-menu-desktop-cadre__icone-entete g {
+.m-icon-svg.mpo-menu-desktop-cadre__icone-entete g {
     fill: black !important;
 }
 
-a.mpo-menu-desktop-cadre__lien:hover {
-    color: black !important;
+.mpo-gabarit-page.mpo-smart-page-mon-compte.mpo-portail-web.mu-app-root, #conteneur-shell, #mpo-menu, .mpo-menu-desktop-cadre__conteneur, .mpo-smart-calendrier__colonne-contenu, .mpo-menu-desktop-cadre__sous-section {
+    background-color: white !important;
+}
+
+img, image, iframe, video {
+    filter: invert(1) hue-rotate(180deg) !important;
+}
+
+.m-modal__wrap.m--is-close-on-backdrop {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.MenuSiteCours_EnteteBloc {
+    background-color: #bababa;
+}
+
+.mpo-menu-cadre__button {
+    background-color: white !important;
+    color: #3c3c3c !important;
 }
 `, manualLightModeCSS = `
-.mpo-menu-desktop-cadre__conteneur {
-    background-color: black !important;
+html, img, image, iframe, video {
+    filter: none !important;
+}
+
+span.mpo-menu-desktop-cadre__titre, .mpo-menu-desktop-cadre__lien, .mpo-menu-desktop-cadre__lien:hover, .mpo-menu-desktop-cadre__conteneur, .mpo-menu-elem, .MenuSiteCours_EnteteBloc * {
     color: white !important;
 }
 
-span.mpo-menu-desktop-cadre__titre {
-    color: white !important;
-}
-
-i.m-icon-svg.mpo-menu-desktop-cadre__icone-entete g {
+.m-icon-svg.mpo-menu-desktop-cadre__icone-entete g {
     fill: white !important;
 }
 
-a.mpo-menu-desktop-cadre__lien:hover {
+.mpo-gabarit-page.mpo-smart-page-mon-compte.mpo-portail-web.mu-app-root, #conteneur-shell, #mpo-menu, .mpo-menu-desktop-cadre__conteneur, .mpo-smart-calendrier__colonne-contenu, .mpo-menu-desktop-cadre__sous-section {
+    background-color: white !important;
+}
+
+.m-modal__wrap.m--is-close-on-backdrop {
+    background-color: rgba(0, 0, 0, 0.65) !important;
+}
+
+.MenuSiteCours_EnteteBloc {
+    background-color: #3c3c3c;
+}
+
+.mpo-menu-cadre__button {
+    background-color: #3c3c3c !important;
     color: white !important;
 }
 `
