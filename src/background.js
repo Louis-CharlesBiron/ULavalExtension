@@ -9,7 +9,6 @@ chrome.runtime.onInstalled.addListener(e=>{
     }
 })
 
-
 chrome.runtime.onMessage.addListener(msg=>{
     if (msg.type=="darkMode") darkModeInjecter(msg.value)
 })

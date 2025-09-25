@@ -13,18 +13,26 @@ function random(min, max, decimals=0) {
     } else return (Math.random()*(max-min)+min)>>0
 }
 
-function absolutize(el, appendToEl=document.querySelector(".mu-app-root")) {
+function absolutize(el, appendToEl=document.body) {
     const {x, y, width, height} = el.getBoundingClientRect(), copyEl = el.cloneNode(999)
-    
     el.style.opacity = 0
     el.style.pointerEvents = "none"
-    
     copyEl.style.position = "absolute"
     copyEl.style.left = x+"px"
     copyEl.style.top = y+"px"
     copyEl.style.width = width+"px"
     copyEl.style.height = height+"px"
+    copyEl.style.userSelect = "none"
+    copyEl.style.zIndex = 9999
+    copyEl.style.transformOrigin = "center"
     appendToEl.appendChild(copyEl)
+    return {newElement:copyEl, x, y, width, height}
+}
+function loadScript(src, callback) {
+    const script = document.createElement("script")
+    script.src = src
+    script.onload=()=>callback&&callback()
+    document.head.appendChild(script)
 }
 
 // STORAGE MAPPING

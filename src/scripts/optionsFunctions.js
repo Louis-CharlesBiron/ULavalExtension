@@ -19,5 +19,6 @@ export function removeBloatAction(checked) {
 }
 
 export function useGravityAction(checked, setter) {
+    sendMessage({type:"useGravity", value:checked, postLoad:true})
     console.log("gravity", checked, typeof setter, chrome)
 }

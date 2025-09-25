@@ -26,6 +26,7 @@
       "matches": ["https://monportail.ulaval.ca/*", "https://sitescours.monportail.ulaval.ca/*", "https://login.microsoftonline.com/*"],
       "excludeMatches": ["*://*/*.pdf*"],
       "js":  [
+        "./content/matter.min.js",
         "./content/contentUtils.js",
         "./content/content.js"
       ]
