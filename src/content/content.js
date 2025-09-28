@@ -76,49 +76,65 @@ function darkMode(enabled) {
 
 
 function useGravity(enabled) {
-    console.log("ENABLE G", enabled)
     if (enabled) {
+        setTimeout(()=>{
+
+
         const {Events, Engine, Runner, Body, Bodies, Composite, Mouse, MouseConstraint, World} = Matter
 
         const engine = Engine.create(), runner = Runner.create()
         engine.gravity.y = 0.6
         Runner.run(runner, engine)
 
-        const wallPadding = -20, wallSize = 10, w = document.documentElement.scrollWidth, h = document.documentElement.scrollHeight, walls = [
-            Bodies.rectangle(w/2, wallPadding, w-wallPadding*2, wallSize, {isStatic:true}),   //top
-            Bodies.rectangle(w-wallPadding, h/2, wallSize, h-wallPadding*2, {isStatic:true}), //right
-            Bodies.rectangle(w/2, h-wallPadding, w-wallPadding*2, wallSize, {isStatic:true}), //bottom
-            Bodies.rectangle(wallPadding, h/2, wallSize, h-wallPadding*2, {isStatic:true})    // left
-        ]
-        Composite.add(engine.world, walls)
+        const containers = document.querySelectorAll("section"), wallPadding = -25, wallSize = 10, els = []
 
-        const top = document.querySelector(".mu-app-root"), targetEls = document.querySelectorAll("svg, img"), t_ll = targetEls.length, els = []
-        targetEls.forEach(el=>{
-            const elRects = absolutize(el, top), x = elRects.x, y = elRects.y, w2 = elRects.width/2, h2 = elRects.height/2,
-                    obj = Bodies.rectangle(x+w2, y+h2, w2*2, h2*2, {restitution:.5})
-            
-            els.push([elRects.newElement, obj, w2, h2])
-            Composite.add(engine.world, obj)
+        containers.forEach(el=>{
+            const rects = el.getBoundingClientRect(), x = rects.x, y = rects.y, w = rects.width, h = rects.height, walls = [
+                Bodies.rectangle(x+w/2, y+wallPadding, w-wallPadding*2, wallSize, {isStatic:true}),   //top
+                Bodies.rectangle(x+w-wallPadding, y+h/2, wallSize, h-wallPadding*2, {isStatic:true}), //right
+                Bodies.rectangle(x+w/2, y+h-wallPadding, w-wallPadding*2, wallSize, {isStatic:true}), //bottom
+                Bodies.rectangle(x+wallPadding, y+h/2, wallSize, h-wallPadding*2, {isStatic:true})    // left
+            ]
+            Composite.add(engine.world, walls)
+
+            const targetEls = el.querySelectorAll("h1, h2, h3, span, p, svg, .mpo-indicateur-reussite"), objPadding = -15//[...el.children]//.querySelectorAll("*")
+            targetEls.forEach(innerEl=>{
+                const elRects = absolutize(innerEl, el), x = elRects.x, y = elRects.y, w2 = elRects.width/2, h2 = elRects.height/2,
+                        obj = Bodies.rectangle(x+w2, y+h2, (w2*2)+objPadding, (h2*2)+objPadding, {restitution:.5})
+                
+                els.push([elRects.newElement, obj, w2, h2, ])
+                Composite.add(engine.world, obj)
+            })
         })
-            
-        World.add(engine.world, MouseConstraint.create(engine, {mouse:Mouse.create(top), constraint:{stiffness:.2}}))
 
-        let lastHeight = document.documentElement.scrollHeight
+
+
+
+        const top = document.body, mouse = Mouse.create(top)
+        World.add(engine.world, MouseConstraint.create(engine, {mouse, constraint:{stiffness:.2, render:{visible:false}}}))
+
+        //let lastHeight = document.documentElement.scrollHeight
+        const t_ll = els.length
         Events.on(engine, "afterUpdate", ()=>{
             for (let i=0;i<t_ll;i++) {
                 const elInfo = els[i], el = elInfo[0], obj = elInfo[1], x = obj.position.x, y = obj.position.y
                 el.style.left = (x-elInfo[2])+"px"
-                el.style.top = (y-elInfo[3])+"px"
+                const newY = y-elInfo[3]
+                el.style.top = (newY > 3000 ? 0 : newY)+"px"
                 el.style.transform = "rotateZ("+obj.angle+"rad)"
             }
 
-            const scrollHeight = document.documentElement.scrollHeight
-            if (lastHeight != scrollHeight) {
-                const bottomWall = walls[0]
-                Body.setPosition(bottomWall, {x:bottomWall.position.x, y:scrollHeight-wallPadding})
-                console.log(bottomWall.position.y)
-                lastHeight = scrollHeight
-            }
+            //const scrollHeight = document.documentElement.scrollHeight
+            //if (lastHeight != scrollHeight) {
+            //    const bottomWall = walls[0]
+            //    Body.setPosition(bottomWall, {x:bottomWall.position.x, y:scrollHeight-wallPadding})
+            //    console.log(bottomWall.position.y)
+            //    lastHeight = scrollHeight
+            //}
         })
+
+
+        }, 2000)
+
     } else console.log("reset")
 }

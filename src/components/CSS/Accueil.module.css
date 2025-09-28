@@ -1,7 +1,7 @@
 .menu {
     width: 100%;
     height: 87%;
-    background-color: purple;
+    background-color: var(--d3);
     display: flex;
     flex-direction: row;
 }
@@ -19,29 +19,42 @@
 
 .dateBlock {
     height: 18%;
-    background-color: aqua;
+    display: flex;
+    border-right: var(--borderWidth) solid  var(--d0);
+    border-bottom: var(--borderWidth) solid  var(--d0);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 
 .notesBlock {
     height: 82%;
+    border-right: var(--borderWidth) solid var(--d0);
 }
 
 .batteryBlock {
     height: 55%;
-    background-color: orange;
+    /* background-color: orange; */
+    border-right:  var(--borderWidth) solid var(--d0);
+    border-bottom: var(--borderWidth) solid var(--d0);
 }
 
 .optionsBlock {
     height: 36%;
     display: flex;
-    background-color: teal;
+    /* background-color: teal; */
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    border-left:  var(--borderWidth) solid var(--d0);
+    /* border-bottom: var(--borderWidth) solid var(--d0); */
 }
 
 .statusBlock {
     height: 9%;
+    border-left:  var(--borderWidth) solid var(--d0);
+    border-top:   var(--borderWidth) solid var(--d0);
 }
 
 .notes {
@@ -54,6 +67,7 @@
     padding-left: 1%;
     padding-top: 1%;
     margin: 0;
+    background-color: transparent;
 }
 
 .notes::placeholder {
@@ -64,4 +78,15 @@
 .optionsBtn {
     cursor: pointer;
     padding: 8% 10%;
+    background-color: var(--l2);
+    border: 3px solid var(--l1);
+    border-radius: 6px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--d2);
+}
+
+.block {
+    /* border-color: var(--d2); */
+    border-radius: 0px;
 }

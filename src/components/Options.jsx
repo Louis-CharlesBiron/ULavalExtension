@@ -24,14 +24,14 @@ function Options() {
         </div>
 
         <div className={styles.row}>
-            <Case text="Use Gravity"><FancyCheckbox state={useGravityEnabledState} action={useGravityAction} storageName={SM.useGravity}></FancyCheckbox></Case>
+            <Case text="Use Gravity*"><FancyCheckbox state={useGravityEnabledState} action={useGravityAction} storageName={SM.useGravity}></FancyCheckbox></Case>
             <Case text="Custom Indicators"></Case>
             <Case></Case>
         </div>
 
         <div className={styles.row}>
             <Case text="Auto Open Zoom"></Case>
-            <Case></Case>
+            <Case text="Save menu location"></Case>
             <Case text="Auto Login"></Case>
         </div>
         

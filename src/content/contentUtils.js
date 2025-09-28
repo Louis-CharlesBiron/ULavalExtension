@@ -17,13 +17,17 @@ function absolutize(el, appendToEl=document.body) {
     const {x, y, width, height} = el.getBoundingClientRect(), copyEl = el.cloneNode(999)
     el.style.opacity = 0
     el.style.pointerEvents = "none"
+    el.style.userSelect = "none"
+    el.style.webkitUserDrag = "none"
+    copyEl.style.webkitUserDrag = "none"
     copyEl.style.position = "absolute"
     copyEl.style.left = x+"px"
     copyEl.style.top = y+"px"
     copyEl.style.width = width+"px"
+    copyEl.style.width = "fit-content"
     copyEl.style.height = height+"px"
     copyEl.style.userSelect = "none"
-    copyEl.style.zIndex = 9999
+    copyEl.style.zIndex = 99999
     copyEl.style.transformOrigin = "center"
     appendToEl.appendChild(copyEl)
     return {newElement:copyEl, x, y, width, height}

@@ -17,7 +17,7 @@ function Header({activePageState}) {
 
     return <div className={styles.header}>
         <div className={styles.content}>
-            {activePageState[0]==PAGES.OPTIONS&&<Button className={styles.back} onClick={()=>activePageState[1](PAGES.ACCUEIL)}>$back</Button>}
+            {activePageState[0]==PAGES.OPTIONS&&<Button className={styles.back} onClick={()=>activePageState[1](PAGES.ACCUEIL)} size={38}>$back</Button>}
             <h1 className={styles.title}>ULaval Extension</h1>
             <div className={styles.time}>{time}</div>
         </div>

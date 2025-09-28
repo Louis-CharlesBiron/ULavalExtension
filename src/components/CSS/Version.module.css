@@ -3,5 +3,12 @@
     right: 2px;
     top: 0;
     z-index: 10;
-    color: rgb(55 55 55);
+    color: var(--l1);
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    transition: 0.4s all;
+}
+.versionDisplay:hover {
+    opacity: 1;
 }

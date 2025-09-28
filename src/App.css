@@ -1,6 +1,47 @@
 :root {
     --no_of: hidden !important;
+    --d0: #1d2636;
+    --d1: #252d46;
+    --d2: #282f4b;
+    --d3: #3b4466;
+    --l1: #ccbfeb;
+    --l2: #ececf5;
+
+    /* --d0: #243a31;
+    --d1: #2f4639;
+    --d2: #354F52;
+    --d3: #496b63;
+    --l1: #84A98C;
+    --l2: #dfe9d9; */
+
+    /* --d0: #081024;
+    --d1: #121a2c;
+    --d2: #1D2D44;
+    --d3: #354f66;
+    --l1: #748CAB;
+    --l2: #F0EBD8; */
+
+    /* --d0: #1d101a;
+    --d1: #1B2021;
+    --d2: #30343F;
+    --d3: #751842;
+    --l1: #EA638C;
+    --l2: #ffc8dd;
+    --temperate1: #cdafc8; */
+
+    --temperate1: #afb7cd;
+
+    --borderWidth: 5px;
 }
+
+@font-face {
+  font-family: "cool1";
+  src: url("./assets/fonts/Signika_Negative/SignikaNegative-VariableFont_wght.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 html, body, #root {
     width: 586px;
     height: 526px;
@@ -8,12 +49,19 @@ html, body, #root {
     margin: 0px;
     user-select: none;
     overflow: var(--no_of);
-    font-family: monospace;
     font-size: 14px;
     letter-spacing: 1.45px;
     outline: 5px solid red;
     position: relative;
+    color: var(--l2);
 }
+
+* {
+    font-family: cool1, monospace !important;
+    letter-spacing: 2.5px;
+
+}
+
 ::selection {background-color: rgba(0, 26, 26, 0.45);}
 *::-webkit-scrollbar {width: 8px;height: 5px;}
 *::-webkit-scrollbar-track {background: transparent;}
