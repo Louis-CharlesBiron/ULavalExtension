@@ -4,8 +4,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--d0);
-    border-bottom: 7px solid var(--d1);
+    background-color: rgba(var(--d0));
+    border-bottom: 7px solid rgba(var(--d1));
 }
 
 .content {
@@ -30,7 +30,7 @@
     background-color: transparent;
     outline: none;
     border:  none;
-    fill: var(--l2);
+    fill: rgba(var(--l2));
     margin-top: 5px;
     cursor: pointer;
 }

@@ -55,3 +55,16 @@ export function getDate() {
     const d = new Date()
     return `${weekdayBank[d.getDay()]} ${d.getDate()} ${monthBank[d.getMonth()]} ${d.getFullYear()}`
 }
+
+/**
+ * Concats the provided classenames
+ * @param  {...String} classname: the classname to concat
+ * @returns a string usable in a html class attribute
+ */
+export function classes(...classname) {
+    return classname.reduce((a,b)=>a+" "+b,"").trim()
+}
+
+export function msToTime(ms=0) {// y:0, d:1, h:2, m:3, s:4, ms:5
+    return [365.2422,24,60,60,1000].reduce((a, b, i)=>(a.push((a[i]%1)*b),a),[ms/1000/60/60/24/365.2422]).map(x=>x>>0)
+}

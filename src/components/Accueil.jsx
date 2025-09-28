@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import styles from "./CSS/Accueil.module.css"
-import { getDate } from "../utils/utils"
+import { classes, getDate } from "../utils/utils"
 import { PAGES } from "../App"
+import ProgressCircle from "./ProgressCircle"
+import MultiDisplayer from "./MultiDisplayer"
 
 /**
  * Displays the main menu
@@ -16,29 +18,27 @@ function Accueil({activePageState}) {
     }, [])
 
     return <div className={styles.menu}>
-
         <div className={styles.left}>
-            <div className={styles.dateBlock+" "+styles.block}>
+            <div className={classes(styles.dateBlock, styles.block)}>
                 <span>{date}</span>
             </div>
-            <div className={styles.notesBlock+" "+styles.block}>
+            <div className={classes(styles.notesBlock, styles.block)}>
                 <textarea className={styles.notes} placeholder="
 Notes..."></textarea>
             </div>
         </div>
 
         <div className={styles.right}>
-            <div className={styles.batteryBlock+" "+styles.block}>
-                
+            <div className={classes(styles.batteryBlock, styles.block)}>
+                <MultiDisplayer/>
             </div>
-            <div className={styles.optionsBlock+" "+styles.block}>
+            <div className={classes(styles.optionsBlock, styles.block)}>
                 <button className={styles.optionsBtn} onClick={()=>activePageState[1](PAGES.OPTIONS)}>Website options →</button>
             </div>
-            <div className={styles.statusBlock+" "+styles.block}>
+            <div className={classes(styles.statusBlock, styles.block, "unobstrusive")}>
                 By Louis-Charles Biron :)
             </div>
         </div>
-
     </div>
 }
 export default Accueil

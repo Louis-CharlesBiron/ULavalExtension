@@ -13,7 +13,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--temperate1);
+    background-color: rgba(var(--temperate1));
     transition: 0.4s;
     display: flex;
     align-items: center;
@@ -27,7 +27,7 @@
     height: 26px;
     width: 26px;
     left: 4px;
-    background-color: var(--l2);
+    background-color: rgba(var(--l2));
     transition: 0.4s;
     border-radius: 2px;
 }

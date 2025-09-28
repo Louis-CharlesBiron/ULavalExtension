@@ -12,6 +12,6 @@ function Version() {
         chrome.management.getSelf(e=>setVersion("v"+e.versionName))
     }, [])
 
-    return <span className={styles.versionDisplay}>{version}</span>
+    return <span className={styles.versionDisplay+" unobstrusive"}>{version}</span>
 }
 export default Version
