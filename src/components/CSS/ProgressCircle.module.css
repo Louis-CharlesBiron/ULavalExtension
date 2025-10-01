@@ -14,7 +14,7 @@
     fill: rgba(var(--d0));
     position: relative;
     border-radius: 100%;
-    transition: 0.4s all;
+    transition: 0.4 s all;
 }
 
 .progress {

@@ -4,7 +4,7 @@ import Case from "./Case"
 import FancyCheckbox from "./FancyCheckbox"
 import { useState } from "react"
 import { darkModeAction, removeBloatAction, useGravityAction } from "../scripts/optionsFunctions"
-import SM from "../utils/storageMapping"
+import {SM} from "../utils/storageMapping"
 
 /**
  * Displays the options menu

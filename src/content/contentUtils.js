@@ -44,6 +44,7 @@ const SM = {
     darkMode:"a",
     antiBloat:"b",
     useGravity:"c",
+    notes:"d",
 }
 
 // DARK MODE CSS

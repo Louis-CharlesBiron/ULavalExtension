@@ -6,7 +6,7 @@ export const chrome = import.meta.env.DEV ? {
         create:e=>console.log("NEW WINDOW CREATED AT ",e)
     },
     storage:{
-        syncv:{},
+        syncv:{d:"TEST"},
         localv:{},
         sync:{
             get:(e,o)=>{setTimeout((()=>"function"!=typeof e?o(chrome.storage.syncv):e(chrome.storage.syncv)),100)},
