@@ -73,7 +73,7 @@ html, body, #root {
 *::-webkit-scrollbar-thumb:hover {background: rgba(99, 99, 99, 0.4);}
 
 .unobstrusive {
-    opacity: 0.65;
+    opacity: 0.5;
     transition: 0.4s opacity;
 }
 .unobstrusive:hover {

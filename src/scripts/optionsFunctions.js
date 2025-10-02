@@ -3,9 +3,9 @@ import { chrome } from "./DEV_fakeChrome";
 
 /**
  *  {
- *      type: the function name
- *      value: parameter value
- *      postLoad: whether the function needs to be run once the content is loaded
+ *   type: the function name
+ *   value: parameter value
+ *   postLoad: whether the function needs to be run once the content is loaded
  *  }
  */
 

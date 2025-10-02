@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import styles from "./CSS/MultiDisplayer.module.css"
 import ProgressCircle from "./ProgressCircle"
 import { msToTime } from "../utils/utils"
+import { UserManagerContext } from "./contexts/UserManagerContext"
 
-const TYPES = {BATTERY:0, TEST:1},
-      REFRESH_TIMES = {
-        [TYPES.BATTERY]: 5000,
-        [TYPES.TEST]: 1000,
+export const MD_TYPES = {DEFAULT:0, BATTERY:0, HOUR:1}
+
+const REFRESH_TIMES = {
+        [MD_TYPES.BATTERY]: 5000,
+        [MD_TYPES.HOUR]: 1000,
     }
 
 /**
@@ -18,29 +20,35 @@ function MultiDisplayer() {
           [info1, setInfo1] = useState({title:"", text:""}),
           [info2, setInfo2] = useState({title:"", text:""}),
           [lastIntervalId, setLastIntervalId] = useState(null),
-          lastIntervalIdRef = useRef(null)
+          lastIntervalIdRef = useRef(null),
+          userManager = useContext(UserManagerContext)
 
     function refreshDisplay(type) {
-        if (type==TYPES.BATTERY) {
+        if (type==MD_TYPES.BATTERY) {
             navigator.getBattery().then(battery=>{
                 const level = battery.level, time = msToTime(battery.dischargingTime*1000)
                 progressRef.current.setFillPercent(level)
                 setInfo1({title:"Battery pourcentile", text:((level*100)|0)+"%"})
                 setInfo2({title:"Time remaining", text:time.every(x=>!x)?"Charging...":((time[1]?time[1]+"d ":"")+(time[2]?time[2]+"h ":"")+(time[3]?time[3]+"min":"")+"\nleft")})
             })
-        } else {
-            progressRef.current.setFillPercent(Math.random())
-            setInfo1({title:"a", text:123})
-            setInfo2({title:"b", text:456})
+        } else if (type==MD_TYPES.HOUR) {
+            const d = new Date(), hourPourcent = (d.getMinutes()*60000+d.getSeconds()*1000+d.getMilliseconds())/3600000, hourPourcentText = ((hourPourcent*100)|0)+"%", minutesLeft = 60-d.getMinutes()
+            progressRef.current.setFillPercent(hourPourcent)
+            setInfo1({title:minutesLeft+"left until the next hour", text:minutesLeft+"min until "+(d.getHours()+1)+":00"})
+            setInfo2({title:hourPourcentText+" of the current hour is completed", text:hourPourcentText+" completed"})
         }
     }
 
-    function updateType(type) {
+    function updateType(type, saveToStorage) {
+        if (type==null) return;
+
         refreshDisplay(type)
         clearInterval(lastIntervalId)
-        setLastIntervalId(setInterval(()=>{
-            refreshDisplay(type)
-        }, REFRESH_TIMES[type]))
+        setLastIntervalId(setInterval(()=>refreshDisplay(type), REFRESH_TIMES[type]))
+
+        console.log("UPDA TO", type)
+        userManager.setMultiDisplayerPref = type
+        if (saveToStorage) userManager.saveMultiDisplayerPref(type)
     }
 
     // Dismount interval id keeper
@@ -48,9 +56,7 @@ function MultiDisplayer() {
 
     useEffect(()=>{
         // TODO STORE WHAT TO DISPLAY
-        updateType(0||TYPES.BATTERY)
-
-
+        //updateType(userManager.multiDisplayerPref)
 
         return ()=>{
             // Clear interval on dismount
@@ -58,11 +64,16 @@ function MultiDisplayer() {
         }
     },[])
 
+    useEffect(()=>{
+        console.log("IDK IDK IDK IDK"+userManager.multiDisplayerPref)
+        if (userManager.multiDisplayerPref!=null) updateType(userManager.multiDisplayerPref)
+    }, [userManager.multiDisplayerPref])
+
 
     return <><ProgressCircle ref={progressRef}>
-        <select className={styles.select} onInput={e=>updateType(+e.target.value)}>
-            <option value={TYPES.BATTERY}>Battery</option>
-            <option value={TYPES.TEST}>Local</option>
+        <select className={styles.select} onChange={e=>updateType(+e.target.value, true)} value={userManager.multiDisplayerPref}>
+            <option value={MD_TYPES.BATTERY}>Battery</option>
+            <option value={MD_TYPES.HOUR}>Current Hour</option>
         </select>
         <div className={styles.text} title={info1.title}>{info1.text}</div>
         <div className={styles.text} title={info2.title}>{info2.text}</div>

@@ -59,7 +59,7 @@ function antiBloat(enabled) {
     parent.style.justifyContent = "center"
 
     // CLEAN EDITION TEXT
-    document.querySelector(".mpo-smart-entete-cadre__logo-mpo").innerHTML = "mon<b>Portail</b><i style='font-size:0.85em'>&nbsp;Clean edition</i>"
+    document.querySelector(".mpo-smart-entete-cadre__logo-mpo").innerHTML = "mon<b>Portail</b>"+enabled?"<i style='font-size:0.85em'>&nbsp;Clean edition</i>":""
 }
 
 function darkMode(enabled) {
