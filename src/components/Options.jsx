@@ -24,7 +24,7 @@ function Options() {
         </div>
 
         <div className={styles.row}>
-            <Case text="Use Gravity*"><FancyCheckbox state={useGravityEnabledState} action={useGravityAction} storageName={SM.useGravity}></FancyCheckbox></Case>
+            <Case text="Enable Gravity"><FancyCheckbox state={useGravityEnabledState} action={useGravityAction} storageName={SM.useGravity}></FancyCheckbox></Case>
             <Case text="Custom Indicators"></Case>
             <Case></Case>
         </div>
