@@ -8,7 +8,7 @@ export const MD_TYPES = {DEFAULT:0, BATTERY:0, HOUR:1}
 
 const REFRESH_TIMES = {
         [MD_TYPES.BATTERY]: 5000,
-        [MD_TYPES.HOUR]: 1000,
+        [MD_TYPES.HOUR]: 5000,
     }
 
 /**
@@ -40,13 +40,10 @@ function MultiDisplayer() {
     }
 
     function updateType(type, saveToStorage) {
-        if (type==null) return;
-
-        refreshDisplay(type)
+        setTimeout(()=>refreshDisplay(type),10)
         clearInterval(lastIntervalId)
         setLastIntervalId(setInterval(()=>refreshDisplay(type), REFRESH_TIMES[type]))
 
-        console.log("UPDA TO", type)
         userManager.setMultiDisplayerPref = type
         if (saveToStorage) userManager.saveMultiDisplayerPref(type)
     }
@@ -55,9 +52,6 @@ function MultiDisplayer() {
     useEffect(()=>{lastIntervalIdRef.current=lastIntervalId}, [lastIntervalId])
 
     useEffect(()=>{
-        // TODO STORE WHAT TO DISPLAY
-        //updateType(userManager.multiDisplayerPref)
-
         return ()=>{
             // Clear interval on dismount
             clearInterval(lastIntervalIdRef.current)
@@ -65,8 +59,7 @@ function MultiDisplayer() {
     },[])
 
     useEffect(()=>{
-        console.log("IDK IDK IDK IDK"+userManager.multiDisplayerPref)
-        if (userManager.multiDisplayerPref!=null) updateType(userManager.multiDisplayerPref)
+        updateType(userManager.multiDisplayerPref, false)
     }, [userManager.multiDisplayerPref])
 
 
