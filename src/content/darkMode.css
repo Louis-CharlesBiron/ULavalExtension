@@ -131,7 +131,7 @@ tr[data-v-5fe5f65d] * {
     background-color: #161616 !important;
 }
 
-h1 {
+h1, h2, h6 {
     color: aliceblue !important;
 }
 
@@ -148,6 +148,83 @@ html, body {
     border-bottom: 2px solid #333333 !important;
     border-top: 2px solid #333333 !important;
 }
+
+.mpo-spinner-cadre * {
+    color: aliceblue !important;
+}
+
+.mpo-page-entete {
+    background-color: #1f1f1f !important;
+}
+
+.ng-scope {
+    color: aliceblue;
+    background-color: black !important;
+}
+
+.mpo-deroulant-bouton {
+    background-color: black;
+}
+
+.ng-binding {
+    background-color: black !important;
+}
+
+.MenuSiteCours_Item {
+    color: aliceblue;
+    background-color: #232323 !important;
+}
+
+.ul_table_body-cell, .ul_column_header-cell {
+    color: aliceblue;
+    background-color: black !important;
+}
+
+.mpo-menu-texte {
+    background-color: transparent !important;
+}
+
+.nav-tabs {
+    background-color: #1f1f1f !important;
+}
+
+.mpo-page-corps {
+    background-color: black !important;
+}
+
+.mpo-page-colonne {
+    background-color: black !important;
+}
+
+.selectioncours *, .inscriptions *, .det-page-conteneur-corps *, recapitulatif-credits * {
+    color: aliceblue !important;
+    background-color: black !important;
+}
+
+#alerte-cours {
+    background-color: #161616 !important;
+    color: aliceblue !important;
+    border: 2px solid #1d1d1d !important;
+    border-left: 4px solid #3f88f6 !important;
+}
+
+.mpo-deroulant-texte {
+    color: aliceblue !important;
+}
+
+.mpo-liste-deroulante .mpo-deroulant-texte::after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #000000);
+}
+
+a.ACCU {
+    color: aliceblue !important;
+}
+
+.mpo-fenetre-profil-menu a {
+    color: aliceblue !important;
+}
+
+*::-webkit-scrollbar-track {background: transparent !important;}
 
 .mpo-static-design-tokens, .mpo-cadre-styles-racine, .mu-app-root, .mpo-liste-evaluations.mpo-liste-evaluations[data-v-641c0467] {
     --m-auto-horizontal-scroll--button-background: rgba(0, 0, 0, 0.7) !important;
