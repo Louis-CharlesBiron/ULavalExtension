@@ -4,35 +4,194 @@
     Please don't use nor credit this code as your own.
 */
 
-html {
-    filter: invert(1) hue-rotate(180deg) saturate(1.1) !important;
+svg g, svg text {
+    fill: aliceblue !important;
 }
 
-span.mpo-menu-desktop-cadre__titre, .mpo-menu-desktop-cadre__lien, .mpo-menu-desktop-cadre__lien:hover, .mpo-menu-desktop-cadre__conteneur, .mpo-menu-elem, .MenuSiteCours_EnteteBloc * {
-    color: black !important;
+svg[enable-background] g:not([fill]) {
+    fill: none !important;
 }
 
-.m-icon-svg.mpo-menu-desktop-cadre__icone-entete g {
-    fill: black !important;
-}
-
-.mpo-gabarit-page.mpo-smart-page-mon-compte.mpo-portail-web.mu-app-root, #conteneur-shell, #mpo-menu, .mpo-menu-desktop-cadre__conteneur, .mpo-smart-calendrier__colonne-contenu, .mpo-menu-desktop-cadre__sous-section {
-    background-color: white !important;
-}
-
-img, image, iframe, video {
-    filter: invert(1) hue-rotate(180deg) !important;
-}
-
-.m-modal__wrap.m--is-close-on-backdrop {
-    background-color: rgba(255, 255, 255, 0.85) !important;
-}
-
-.MenuSiteCours_EnteteBloc {
-    background-color: #bababa;
+svg g[fill="none"], svg path[fill="none"] {
+    stroke: aliceblue !important;
+    fill: none !important;
 }
 
 .mpo-menu-cadre__button {
-    background-color: white !important;
-    color: #3c3c3c !important;
+    background-color: #000000 !important;
+    color: #bbb9b9 !important;
+}
+
+.mpo-item-liste-evenement-calendrier {
+    --color-calendrier: #000000 !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1) !important;
+}
+
+.mpo-item-liste-evenement-calendrier > div {
+    background-color: var(--m-color-grey-lightest) !important;
+}
+
+.mpo-menu-cadre__corps * {
+    color: aliceblue !important;
+}
+
+.mpo-gabarit-page.mpo-smart-page-mon-compte.mpo-portail-web.mu-app-root, #conteneur-shell, #mpo-menu, .mpo-menu-desktop-cadre__conteneur, .mpo-smart-calendrier__colonne-contenu, .mpo-menu-desktop-cadre__sous-section {
+    background-color: #000000 !important;
+}
+
+.m-empty-area__title {
+    color: var(--m-color-grey);
+}
+
+.mpo-gabarit-page__page {
+    background-color: black !important;
+}
+
+.mpo-onglets-nouveautes-app__navigation button {
+    background: #ffffff00 !important;
+}
+
+.m-input-style__text {
+    color: aliceblue;
+}
+
+.mpo-smart-notifications-cadre__corps {
+    color: aliceblue;
+}
+
+tr[data-v-5fe5f65d] th {
+    background-color: black !important;
+}
+
+tr[data-v-5fe5f65d] * {
+    color: aliceblue;
+}
+
+.b5r-week {
+    --background: #000000 !important;;
+}
+
+.ena_page {
+    background-color: black !important;
+}
+
+.ena_contenuSite {
+    color: aliceblue !important;
+}
+
+.ul_richTextEditor_content th {
+    background-color: #242424 !important;
+}
+
+.ul_div * {
+    color: aliceblue !important;
+}
+
+.ul_div {
+    background-color: #00000000 !important;
+}
+
+.mpo-pied-mention-legale {
+    background-color: black !important;
+    color: #82888d !important;
+}
+
+.mpo-pied {
+    background-color: #000000 !important;
+    border-top: 2px solid #373737 !important;
+}
+
+.EnteteSiteCours {
+    background-color: black !important;
+    color: aliceblue !important;
+}
+
+.TitreCours {
+    color: aliceblue !important;
+}
+
+.ZoneMenuSiteCours .af_commandNavigationItem, .ZoneMenuSiteCours .MenuSiteCours_LienNavigation, .MenuSiteCours_PlanCoursPDF {
+    color: aliceblue !important;
+    background-color: #1b1b1b !important;
+}
+
+.mpo-entete {
+    background-color: black !important;
+}
+
+.MenuSiteCours_Outils_Zone {
+    background-color: #1b1b1b !important;
+}
+
+.MenuSiteCours_Outils_Item_COUR:before ,.MenuSiteCours_Outils_Item_REUS:before, .MenuSiteCours_Outils_Item_REUS:before, .MenuSiteCours_Outils_Item_FORU::before, .MenuSiteCours_Outils_Item_FORU:hover .af_commandNavigationItem:before, .MenuSiteCours_Outils_Item_FORU .af_commandNavigationItem.p_AFSelected:before {
+    color: aliceblue !important;
+}
+
+.MenuSiteCours_Item:hover, .MenuSiteCours_Accueil:hover, .MenuSiteCours_Outils_Zone > [class*="MenuSiteCours_Outils_Item_"]:hover, .MenuSiteCours_Outils_APPREUS:hover {
+    background-color: #161616 !important;
+}
+
+h1 {
+    color: aliceblue !important;
+}
+
+html, body {
+    background-color: black !important;
+}
+
+.MenuSiteCours_Accueil_Selected .af_commandNavigationItem {
+    color: aliceblue !important;
+}
+
+.ul_table_body-cell {
+    background-color: #000000 !important;
+    border-bottom: 2px solid #333333 !important;
+    border-top: 2px solid #333333 !important;
+}
+
+.mpo-static-design-tokens, .mpo-cadre-styles-racine, .mu-app-root, .mpo-liste-evaluations.mpo-liste-evaluations[data-v-641c0467] {
+    --m-auto-horizontal-scroll--button-background: rgba(0, 0, 0, 0.7) !important;
+    --m-color-ul-blue: #09f !important;
+    --m-color-ul-yellow: #5b4503 !important;
+    --m-color-ul-red: #00ff40 !important;
+    --m-color-grey-black: #efbdbd !important;
+    --m-color-grey-darkest: #2b2b2b !important;
+    --m-color-grey-darker: #111111 !important;
+    --m-color-grey-dark: #000000 !important;
+    --m-color-grey: #616161 !important;
+    --m-color-grey-light: #3d3d3d !important;
+    --m-color-grey-lighter: #141414 !important;
+    --m-color-grey-lightest: #181818 !important;
+    --m-color-black: #ffffff !important;
+    --m-color-white: #000000 !important;
+    --m-color-text: aliceblue !important;
+    --m-color-text-light: var(--m-color-grey-darker) !important;
+    --m-color-interactive-darker: #0b46ac !important;
+    --m-color-interactive-dark: #1854be !important;
+    --m-color-interactive: #096cdc !important;
+    /* --m-color-interactive-light: var(--m-color-ul-blue) !important; */
+    --m-color-interactive-lightest: #000000 !important;
+    /* --m-color-information: var(--m-color-interactive-lightest) !important; */
+    --m-color-accent-dark: #ca7300 !important;
+    --m-color-accent: #db7e00 !important;
+    --m-color-accent-light: #f39612 !important;
+    --m-color-accent-lightest: #433e36 !important;
+    --m-color-success-dark: #086c30 !important;
+    --m-color-success: #0a873c !important;
+    --m-color-success-light: #baebc7 !important;
+    --m-color-success-lightest: #252926 !important;
+    /* --m-color-warning: var(--m-color-accent) !important; */
+    /* --m-color-warning-lightest: var(--m-color-accent-lightest) !important; */
+    --m-color-error-dark: #b3040f !important;
+    /* --m-color-error: var(--m-color-ul-red) !important; */
+    --m-color-error-lightest: #000000 !important;
+    /* --m-color-active: var(--m-color-ul-yellow) !important; */
+    /* --m-color-disabled-dark: var(--m-color-grey-dark) !important; */
+    --m-color-disabled: #efc6c6 !important;
+    /* --m-color-disabled-light: var(--m-color-grey-light) !important; */
+    /* --m-color-border-dark: var(--m-color-grey-dark) !important; */
+    /* --m-color-border: var(--m-color-grey-light) !important; */
+    /* --m-color-border-light: var(--m-color-grey-lighter) !important; */
+    /* --m-color-scrollbar: var(--m-color-grey) !important; */
+    /* --m-color-scrollbar-light: var(--m-color-grey-light) !important; */
 }

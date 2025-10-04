@@ -46,6 +46,7 @@ const SM = {
     useGravity:"c",
     notes:"d",
     multiDisplayerPref:"e",
+    preventInactivity:"f",
 }
 
 // DARK MODE CSS

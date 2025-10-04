@@ -22,6 +22,7 @@ function execMapper(msg) {
         if (msg.type=="antiBloat") antiBloat(msg.value)
         else if (msg.type=="darkMode") darkMode(msg.value)
         else if (msg.type=="useGravity") useGravity(msg.value)
+        else if (msg.type=="preventInactivity") preventInactivity(msg.value)
     }
 }
 
@@ -29,6 +30,7 @@ function execMapper(msg) {
 chrome.storage.sync.get(r=>{
     if (r[SM.antiBloat]) execMapper({type:"antiBloat", value:r[SM.antiBloat], postLoad:true})
     if (r[SM.useGravity]) execMapper({type:"useGravity", value:r[SM.useGravity], postLoad:true})
+    if (r[SM.preventInactivity]) execMapper({type:"preventInactivity", value:r[SM.preventInactivity], postLoad:true})
 })
 
 // LOADING OBSERVER
@@ -59,7 +61,7 @@ function antiBloat(enabled) {
     parent.style.justifyContent = "center"
 
     // CLEAN EDITION TEXT
-    document.querySelector(".mpo-smart-entete-cadre__logo-mpo").innerHTML = "mon<b>Portail</b>"+enabled?"<i style='font-size:0.85em'>&nbsp;Clean edition</i>":""
+    document.querySelector(".mpo-smart-entete-cadre__logo-mpo").innerHTML = "mon<b>Portail</b>"+(enabled?"<i style='font-size:0.85em'>&nbsp;Clean edition</i>":"")
 }
 
 function darkMode(enabled) {
@@ -74,67 +76,63 @@ function darkMode(enabled) {
     head.appendChild(styleElement)
 }
 
+let _preventInactivityIntervalId = null
+function preventInactivity(enabled) {
+    clearInterval(_preventInactivityIntervalId)
+    if (enabled) {
+        _preventInactivityIntervalId = setInterval(()=>{
+            window.dispatchEvent(new CustomEvent("mpo.shell.session.wake"))
+            console.log("wakje Up")
+        }, 2000)
+    }
+}
 
 function useGravity(enabled) {
     if (enabled) {
         setTimeout(()=>{
+            const {Events, Engine, Runner, Body, Bodies, Composite, Mouse, MouseConstraint, World} = Matter
 
+            const engine = Engine.create(), runner = Runner.create()
+            engine.gravity.y = 0.6
+            Runner.run(runner, engine)
 
-        const {Events, Engine, Runner, Body, Bodies, Composite, Mouse, MouseConstraint, World} = Matter
+            const containers = document.querySelectorAll("section"), wallPadding = -25, wallSize = 10, els = []
 
-        const engine = Engine.create(), runner = Runner.create()
-        engine.gravity.y = 0.6
-        Runner.run(runner, engine)
+            containers.forEach(el=>{
+                const rects = el.getBoundingClientRect(), x = rects.x, y = rects.y, w = rects.width, h = rects.height, walls = [
+                    Bodies.rectangle(x+w/2, y+wallPadding, w-wallPadding*2, wallSize, {isStatic:true}),   //top
+                    Bodies.rectangle(x+w-wallPadding, y+h/2, wallSize, h-wallPadding*2, {isStatic:true}), //right
+                    Bodies.rectangle(x+w/2, y+h-wallPadding, w-wallPadding*2, wallSize, {isStatic:true}), //bottom
+                    Bodies.rectangle(x+wallPadding, y+h/2, wallSize, h-wallPadding*2, {isStatic:true})    // left
+                ]
+                Composite.add(engine.world, walls)
 
-        const containers = document.querySelectorAll("section"), wallPadding = -25, wallSize = 10, els = []
-
-        containers.forEach(el=>{
-            const rects = el.getBoundingClientRect(), x = rects.x, y = rects.y, w = rects.width, h = rects.height, walls = [
-                Bodies.rectangle(x+w/2, y+wallPadding, w-wallPadding*2, wallSize, {isStatic:true}),   //top
-                Bodies.rectangle(x+w-wallPadding, y+h/2, wallSize, h-wallPadding*2, {isStatic:true}), //right
-                Bodies.rectangle(x+w/2, y+h-wallPadding, w-wallPadding*2, wallSize, {isStatic:true}), //bottom
-                Bodies.rectangle(x+wallPadding, y+h/2, wallSize, h-wallPadding*2, {isStatic:true})    // left
-            ]
-            Composite.add(engine.world, walls)
-
-            const targetEls = el.querySelectorAll("h1, h2, h3, span, p, svg, .mpo-indicateur-reussite"), objPadding = -15//[...el.children]//.querySelectorAll("*")
-            targetEls.forEach(innerEl=>{
-                const elRects = absolutize(innerEl, el), x = elRects.x, y = elRects.y, w2 = elRects.width/2, h2 = elRects.height/2,
-                        obj = Bodies.rectangle(x+w2, y+h2, (w2*2)+objPadding, (h2*2)+objPadding, {restitution:.5})
-                
-                els.push([elRects.newElement, obj, w2, h2, ])
-                Composite.add(engine.world, obj)
+                const targetEls = el.querySelectorAll("h1, h2, h3, span, p, svg, .mpo-indicateur-reussite"), objPadding = -15//[...el.children]//.querySelectorAll("*")
+                targetEls.forEach(innerEl=>{
+                    const elRects = absolutize(innerEl, el), x = elRects.x, y = elRects.y, w2 = elRects.width/2, h2 = elRects.height/2,
+                            obj = Bodies.rectangle(x+w2, y+h2, (w2*2)+objPadding, (h2*2)+objPadding, {restitution:.5})
+                    
+                    els.push([elRects.newElement, obj, w2, h2, ])
+                    Composite.add(engine.world, obj)
+                })
             })
-        })
 
 
+            const top = document.body, mouse = Mouse.create(top)
+            World.add(engine.world, MouseConstraint.create(engine, {mouse, constraint:{stiffness:.2, render:{visible:false}}}))
 
+            const t_ll = els.length
+            Events.on(engine, "afterUpdate", ()=>{
+                for (let i=0;i<t_ll;i++) {
+                    const elInfo = els[i], el = elInfo[0], obj = elInfo[1], x = obj.position.x, y = obj.position.y
+                    el.style.left = (x-elInfo[2])+"px"
+                    const newY = y-elInfo[3]
+                    el.style.top = (newY > 3000 ? 0 : newY)+"px"
+                    el.style.transform = "rotateZ("+obj.angle+"rad)"
+                }
+            })
 
-        const top = document.body, mouse = Mouse.create(top)
-        World.add(engine.world, MouseConstraint.create(engine, {mouse, constraint:{stiffness:.2, render:{visible:false}}}))
+        }, 500)
 
-        //let lastHeight = document.documentElement.scrollHeight
-        const t_ll = els.length
-        Events.on(engine, "afterUpdate", ()=>{
-            for (let i=0;i<t_ll;i++) {
-                const elInfo = els[i], el = elInfo[0], obj = elInfo[1], x = obj.position.x, y = obj.position.y
-                el.style.left = (x-elInfo[2])+"px"
-                const newY = y-elInfo[3]
-                el.style.top = (newY > 3000 ? 0 : newY)+"px"
-                el.style.transform = "rotateZ("+obj.angle+"rad)"
-            }
-
-            //const scrollHeight = document.documentElement.scrollHeight
-            //if (lastHeight != scrollHeight) {
-            //    const bottomWall = walls[0]
-            //    Body.setPosition(bottomWall, {x:bottomWall.position.x, y:scrollHeight-wallPadding})
-            //    console.log(bottomWall.position.y)
-            //    lastHeight = scrollHeight
-            //}
-        })
-
-
-        }, 2000)
-
-    } else console.log("reset")
+    } else console.log("reset TODO")
 }

@@ -1,26 +1,17 @@
-import { useEffect } from "react"
 import styles from "./CSS/FancyCheckbox.module.css"
-import { STORAGE_TYPES } from "../utils/utils"
-import { chrome } from "../scripts/DEV_fakeChrome"
 
 /**
  * Displays a fancy checkbox
  */
-function FancyCheckbox({state, action, storageName, storageType=STORAGE_TYPES.SYNC, isDarkModeCheckbox=false}) {
-    const [stateChecked, setChecked] = state
-
-    useEffect(()=>{
-        if (storageName) chrome.storage[storageType].get(r=>setChecked(r[storageName]??false))
-    }, [])
-
+function FancyCheckbox({state, action, autoSave, isDarkModeCheckbox=false}) {
     return <label className={styles.checkboxParent}>
         <input type="checkbox" checked={state[0]} onChange={e=>{
             const checked = e.target.checked
-            setChecked(checked)
-            if (storageName) chrome.storage[storageType].set({[storageName]:checked})
-            if (typeof action=="function") action(checked, setChecked)
+            state[1](checked)
+            if (typeof action=="function") action(checked)
+            if (typeof autoSave=="function") autoSave(checked)
             }}></input>
-        <span className={styles.checkCore+" "+(isDarkModeCheckbox?(stateChecked?styles.night:styles.day):"")}></span>
+        <span className={styles.checkCore+" "+(isDarkModeCheckbox?(state[0]?styles.night:styles.day):"")}></span>
     </label>
 }
 export default FancyCheckbox

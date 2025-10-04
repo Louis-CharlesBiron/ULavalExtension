@@ -14,11 +14,13 @@ export function darkModeAction(checked) {
 }
 
 export function removeBloatAction(checked) {
-    console.log("bloat", checked, typeof setter, chrome)
     sendMessage({type:"antiBloat", value:checked, postLoad:true})
 }
 
-export function useGravityAction(checked, setter) {
+export function useGravityAction(checked) {
     sendMessage({type:"useGravity", value:checked, postLoad:true})
-    console.log("gravity", checked, typeof setter, chrome)
+}
+
+export function preventInactivity(checked) {
+    sendMessage({type:"preventInactivity", value:checked, postLoad:true})
 }
