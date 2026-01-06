@@ -1,0 +1,25 @@
+{
+  "name": "ULaval Notes Logging",
+  "description": "perso",
+  "version": "1",
+  "version_name": "1 ",
+  "manifest_version": 3,
+  "icons": {
+      "128": "./assets/img/popup.png"
+  },
+  "host_permissions": ["https://sitescours.monportail.ulaval.ca/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://sitescours.monportail.ulaval.ca/*"],
+      "excludeMatches": ["*://*/*.pdf*"],
+      "js":  [
+        "./content/content.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting"
+  ]
+}
